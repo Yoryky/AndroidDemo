@@ -99,7 +99,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
                 String url = "http://192.168.8.130:8081/test/post";
                 OkHttpClient httpClient = new OkHttpClient();
                 RequestBody body = new FormBody.Builder().add("name", "yjing").add("age", "12").build();
-                Request request = new Request.Builder().url(url).post(body).build();
+                Request request = new Request.Builder().url(url).post(body).header("Cookie","{'name':;'yjing','age':'12'").build();
                 Call call = httpClient.newCall(request);
                 try {
                     Response response = call.execute();
