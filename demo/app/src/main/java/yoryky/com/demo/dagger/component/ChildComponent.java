@@ -10,6 +10,6 @@ import yoryky.com.demo.util.DaggerUtil;
 @ChildScope
 @Subcomponent(modules = {ChildModule.class})
 public interface ChildComponent {
-    DaggerUtil daggerUtil();
+    //DaggerUtil daggerUtil();
     void inject(DaggerActivity activity);
 }
