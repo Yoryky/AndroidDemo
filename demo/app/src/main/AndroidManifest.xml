@@ -25,5 +25,10 @@
         <activity android:name=".activity.CookieActivity"/>
 
         <activity android:name=".activity.DaggerActivity"/>
+
+        <activity android:name=".activity.RepositoryActivity"/>
+
+        <activity android:name=".activity.Retrofit2Activity"/>
+
     </application>
 </manifest>

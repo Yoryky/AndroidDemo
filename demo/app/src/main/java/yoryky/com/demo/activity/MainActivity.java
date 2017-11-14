@@ -17,6 +17,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout llHttp3;
     private LinearLayout llCookie;
     private LinearLayout llDagger;
+    private LinearLayout llRetrofit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,9 +30,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         llHttp3 = (LinearLayout) findViewById(R.id.ll_http3);
         llCookie = (LinearLayout) findViewById(R.id.ll_cookie);
         llDagger = (LinearLayout)findViewById(R.id.ll_dagger);
+        llRetrofit = (LinearLayout)findViewById(R.id.ll_retrofit);
         llHttp3.setOnClickListener(this);
         llCookie.setOnClickListener(this);
         llDagger.setOnClickListener(this);
+        llRetrofit.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +51,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.ll_dagger:
                 Intent intent2 = new Intent(this,DaggerActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.ll_retrofit:
+                Intent intent3 = new Intent(this,Retrofit2Activity.class);
+                startActivity(intent3);
                 break;
         }
     }

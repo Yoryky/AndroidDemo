@@ -8,10 +8,12 @@ import android.widget.Button;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -191,5 +193,28 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }).start();
+    }
+
+    private void syncTest(){
+        String url = "https://www.baidu.com/";
+        OkHttpClient okHttpClient = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, "{'name':'yjing','age':'12'}");
+        Request request = new Request.Builder()
+                .post(body)
+                .url(url)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("我是异步线程,线程Id为:" + Thread.currentThread().getId());
+            }
+        });
     }
 }
