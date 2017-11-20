@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,6 +33,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
     private Button btnPostJson;
     private Button btnPostFile;
     private Button btnPostImg;
+    private Button btnAsyncTest;
     private Context mContext;
 
     @Override
@@ -48,11 +50,13 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         btnPostJson = (Button) findViewById(R.id.btn_post_json);
         btnPostFile = (Button) findViewById(R.id.btn_post_file);
         btnPostImg = (Button)findViewById(R.id.btn_post_img);
+        btnAsyncTest = (Button)findViewById(R.id.btn_async_test);
         btnGet.setOnClickListener(this);
         btnPost.setOnClickListener(this);
         btnPostJson.setOnClickListener(this);
         btnPostFile.setOnClickListener(this);
         btnPostImg.setOnClickListener(this);
+        btnAsyncTest.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +77,9 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
             case R.id.btn_post_img:
                 postImgData();
                 break;
+            case R.id.btn_async_test:
+                syncTest();
+                break;
         }
     }
 
@@ -80,7 +87,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://192.168.8.130:8081/test/get?name=yjing&age=12";
+                String url = "http://192.168.8.136:8081/test/get?name=yjing&age=12";
                 OkHttpClient httpClient = new OkHttpClient();
                 Request request = new Request.Builder().url(url).build();
                 Call call = httpClient.newCall(request);
@@ -98,10 +105,10 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://192.168.8.130:8081/test/post";
+                String url = "http://192.168.8.136:8081/test/post";
                 OkHttpClient httpClient = new OkHttpClient();
-                RequestBody body = new FormBody.Builder().add("name", "yjing").add("age", "12").build();
-                Request request = new Request.Builder().url(url).post(body).header("Cookie","{'name':;'yjing','age':'12'").build();
+                RequestBody body = new FormBody.Builder().add("name", "yoryky").add("age", "12").build();
+                Request request = new Request.Builder().url(url).post(body).header("Cookie","{'name':'yoryky','age':'12'").build();
                 Call call = httpClient.newCall(request);
                 try {
                     Response response = call.execute();
@@ -117,7 +124,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://192.168.8.130:8081/test/postJson";
+                String url = "http://192.168.8.136:8081/test/postJson";
                 OkHttpClient httpClient = new OkHttpClient();
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 RequestBody body = RequestBody.create(JSON, "{'name':'yjing','age':'12'}");
@@ -148,7 +155,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
                     }
                     os.close();
                     is.close();
-                    String url = "http://192.168.8.130:8081/test/postText";
+                    String url = "http://192.168.8.136:8081/test/postText";
                     OkHttpClient httpClient = new OkHttpClient();
                     MediaType Text_Plain = MediaType.parse("text/plain;charset=utf-8");
                     RequestBody body = RequestBody.create(Text_Plain, file);
@@ -179,7 +186,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
                     }
                     os.close();
                     is.close();
-                    String url = "http://192.168.8.130:8081/test/postImg";
+                    String url = "http://192.168.8.136:8081/test/postImg";
                     OkHttpClient httpClient = new OkHttpClient();
                     MediaType Text_Plain = MediaType.parse("image/jpeg;charset=utf-8");
                     RequestBody body = RequestBody.create(Text_Plain, file);

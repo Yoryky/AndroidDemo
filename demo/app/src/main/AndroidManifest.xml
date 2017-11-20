@@ -30,5 +30,10 @@
 
         <activity android:name=".activity.Retrofit2Activity"/>
 
+        <activity android:name=".activity.RxJavaActivity"/>
+
+        <activity android:name=".activity.UrlConnectionActivity"/>
+
+        <activity android:name=".activity.SocketActivity"/>
     </application>
 </manifest>

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import retrofit2.http.Url;
 import yoryky.com.demo.R;
 
 /**
@@ -18,6 +19,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout llCookie;
     private LinearLayout llDagger;
     private LinearLayout llRetrofit;
+    private LinearLayout llRxJava;
+    private LinearLayout llUrlConnection;
+    private LinearLayout llSocket;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,10 +35,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         llCookie = (LinearLayout) findViewById(R.id.ll_cookie);
         llDagger = (LinearLayout)findViewById(R.id.ll_dagger);
         llRetrofit = (LinearLayout)findViewById(R.id.ll_retrofit);
+        llRxJava = (LinearLayout)findViewById(R.id.ll_rxjava);
+        llUrlConnection = (LinearLayout)findViewById(R.id.ll_urlconnection);
+        llSocket = (LinearLayout)findViewById(R.id.ll_socket);
         llHttp3.setOnClickListener(this);
         llCookie.setOnClickListener(this);
         llDagger.setOnClickListener(this);
         llRetrofit.setOnClickListener(this);
+        llRxJava.setOnClickListener(this);
+        llUrlConnection.setOnClickListener(this);
+        llSocket.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +65,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.ll_retrofit:
                 Intent intent3 = new Intent(this,Retrofit2Activity.class);
                 startActivity(intent3);
+                break;
+            case R.id.ll_rxjava:
+                Intent intent4 = new Intent(this,RxJavaActivity.class);
+                startActivity(intent4);
+                break;
+            case R.id.ll_urlconnection:
+                Intent intent5 = new Intent(this, UrlConnectionActivity.class);
+                startActivity(intent5);
+                break;
+            case R.id.ll_socket:
+                Intent intent6 = new Intent(this,SocketActivity.class);
+                startActivity(intent6);
                 break;
         }
     }

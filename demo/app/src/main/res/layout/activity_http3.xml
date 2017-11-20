@@ -54,4 +54,14 @@
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_16"/>
 
+    <Button
+        android:id="@+id/btn_async_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:text="testAsync"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:textSize="@dimen/text_size_16"/>
+
 </LinearLayout>
