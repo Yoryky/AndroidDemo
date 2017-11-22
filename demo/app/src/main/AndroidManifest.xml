@@ -1,39 +1,52 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-    package="yoryky.com.demo">
+    package="com.yoryky.demo">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.ql.provider.READ" />
     <application
-        android:name=".MyApplication"
+        android:name="com.yoryky.demo.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.yoryky.demo.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.Http3Activity"/>
+        <activity android:name="com.yoryky.demo.activity.Http3Activity"/>
 
-        <activity android:name=".activity.CookieActivity"/>
+        <activity android:name="com.yoryky.demo.activity.CookieActivity"/>
 
-        <activity android:name=".activity.DaggerActivity"/>
+        <activity android:name="com.yoryky.demo.activity.DaggerActivity"/>
 
-        <activity android:name=".activity.RepositoryActivity"/>
+        <activity android:name="com.yoryky.demo.activity.RepositoryActivity"/>
 
-        <activity android:name=".activity.Retrofit2Activity"/>
+        <activity android:name="com.yoryky.demo.activity.Retrofit2Activity"/>
 
-        <activity android:name=".activity.RxJavaActivity"/>
+        <activity android:name="com.yoryky.demo.activity.RxJavaActivity"/>
 
-        <activity android:name=".activity.UrlConnectionActivity"/>
+        <activity android:name="com.yoryky.demo.activity.UrlConnectionActivity"/>
 
-        <activity android:name=".activity.SocketActivity"/>
+        <activity android:name="com.yoryky.demo.activity.SocketActivity"/>
+
+        <activity android:name="com.yoryky.demo.activity.AsyncTaskActivity"/>
+
+        <activity android:name=".activity.ProviderActivity"/>
+
+        <provider
+            android:name="com.yoryky.demo.provider.MenuProvider"
+            android:authorities="myfs.pub.menusprovider"
+            android:exported="true"
+            android:readPermission="com.ql.provider.READ" >
+            <!-- 指定授权者 -->
+            <!-- 给予其他应用程序只读取自己数据的权限 -->
+        </provider>
     </application>
 </manifest>
