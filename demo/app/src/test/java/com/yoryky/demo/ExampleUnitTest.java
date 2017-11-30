@@ -1,4 +1,4 @@
-package com.com1.demo;
+package com.yoryky.demo;
 
 import org.junit.Test;
 

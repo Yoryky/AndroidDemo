@@ -1,95 +1,88 @@
 package com.yoryky.demo.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ViewUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.yoryky.demo.R;
 
+import org.xutils.view.annotation.Event;
+import org.xutils.x;
+
 /**
  * Created by caicai on 2017/9/28.
  */
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private LinearLayout llHttp3;
-    private LinearLayout llCookie;
-    private LinearLayout llDagger;
-    private LinearLayout llRetrofit;
-    private LinearLayout llRxJava;
-    private LinearLayout llUrlConnection;
-    private LinearLayout llSocket;
-    private LinearLayout llAsyncTask;
-    private LinearLayout llProvider;
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.initViews();
+        x.view().inject(this);
     }
 
-    private void initViews() {
-        llHttp3 = (LinearLayout) findViewById(R.id.ll_http3);
-        llCookie = (LinearLayout) findViewById(R.id.ll_cookie);
-        llDagger = (LinearLayout)findViewById(R.id.ll_dagger);
-        llRetrofit = (LinearLayout)findViewById(R.id.ll_retrofit);
-        llRxJava = (LinearLayout)findViewById(R.id.ll_rxjava);
-        llUrlConnection = (LinearLayout)findViewById(R.id.ll_urlconnection);
-        llSocket = (LinearLayout)findViewById(R.id.ll_socket);
-        llAsyncTask = (LinearLayout)findViewById(R.id.ll_asynctask);
-        llProvider = (LinearLayout)findViewById(R.id.ll_provider);
-        llHttp3.setOnClickListener(this);
-        llCookie.setOnClickListener(this);
-        llDagger.setOnClickListener(this);
-        llRetrofit.setOnClickListener(this);
-        llRxJava.setOnClickListener(this);
-        llUrlConnection.setOnClickListener(this);
-        llSocket.setOnClickListener(this);
-        llAsyncTask.setOnClickListener(this);
-        llProvider.setOnClickListener(this);
+    @Event(value = R.id.ll_http3)
+    private void onHttp3Click(View view){
+        startActivity("com.yoryky.demo.activity.Http3Activity");
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_http3:
-                Intent intent = new Intent(this, Http3Activity.class);
-                startActivity(intent);
-                break;
-            case R.id.ll_cookie:
-                Intent intent1 = new Intent(this,CookieActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.ll_dagger:
-                Intent intent2 = new Intent(this,DaggerActivity.class);
-                startActivity(intent2);
-                break;
-            case R.id.ll_retrofit:
-                Intent intent3 = new Intent(this,Retrofit2Activity.class);
-                startActivity(intent3);
-                break;
-            case R.id.ll_rxjava:
-                Intent intent4 = new Intent(this,RxJavaActivity.class);
-                startActivity(intent4);
-                break;
-            case R.id.ll_urlconnection:
-                Intent intent5 = new Intent(this, UrlConnectionActivity.class);
-                startActivity(intent5);
-                break;
-            case R.id.ll_socket:
-                Intent intent6 = new Intent(this,SocketActivity.class);
-                startActivity(intent6);
-                break;
-            case R.id.ll_asynctask:
-                Intent intent7 = new Intent(this,AsyncTaskActivity.class);
-                startActivity(intent7);
-                break;
-            case R.id.ll_provider:
-                Intent intent8 = new Intent(this,ProviderActivity.class);
-                startActivity(intent8);
-                break;
+    @Event(value = R.id.ll_dagger)
+    private void onDaggerClick(View view){
+        startActivity("com.yoryky.demo.activity.DaggerActivity");
+    }
+
+    @Event(value = R.id.ll_cookie)
+    private  void onCookieClick(View view){
+        startActivity("com.yoryky.demo.activity.CookieActivity");
+    }
+
+    @Event(value = R.id.ll_retrofit)
+    private void onRetrofitClick(View view){
+        startActivity("com.yoryky.demo.activity.Retrofit2Activity");
+    }
+
+    @Event(value = R.id.ll_rxjava)
+    private void onRxJavaClick(View view){
+        startActivity("com.yoryky.demo.activity.RxJavaActivity");
+    }
+
+    @Event(value = R.id.ll_urlconnection)
+    private void onUrlConnectClick(View view){
+        startActivity("com.yoryky.demo.activity.UrlConnectionActivity");
+    }
+
+    @Event(value = R.id.ll_socket)
+    private void onSocketClick(View view){
+        startActivity("com.yoryky.demo.activity.SocketActivity");
+    }
+
+    @Event(value = R.id.ll_asynctask)
+    private void onAsyncTaskClick(View view){
+        startActivity("com.yoryky.demo.activity.AsyncTaskActivity");
+    }
+
+    @Event(value = R.id.ll_provider)
+    private void onProviderClick(View view){
+        startActivity("com.yoryky.demo.activity.ProviderActivity");
+    }
+
+    @Event(value = R.id.ll_storage)
+    private void onStorageClick(View view){
+        startActivity("com.yoryky.demo.activity.StorageActivity");
+    }
+
+    private void startActivity(String activityName){
+        try{
+            Intent intent = new Intent(MainActivity.this,Class.forName(activityName));
+            startActivity(intent);
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
         }
     }
+
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待写的内容：" />
+
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:hint="这里添加待写入的内容"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnWriteExt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写外部存储" />
+
+        <Button
+            android:id="@+id/btnWriteInt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写内部存储" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="读出来的内容：" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:hint="这里会有读出来的内容" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnReadExt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="读外部存储" />
+
+        <Button
+            android:id="@+id/btnReadInt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="读内部存储" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnClearExt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清空外部存储" />
+
+        <Button
+            android:id="@+id/btnClearInt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清空内部存储" />
+    </LinearLayout>
+</LinearLayout>

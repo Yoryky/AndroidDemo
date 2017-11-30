@@ -2,7 +2,14 @@
 
     package="com.yoryky.demo">
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <!--读取SDCard数据权限-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- 向SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.ql.provider.READ" />
     <application
@@ -20,25 +27,27 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.yoryky.demo.activity.Http3Activity"/>
+        <activity android:name=".activity.Http3Activity"/>
 
-        <activity android:name="com.yoryky.demo.activity.CookieActivity"/>
+        <activity android:name=".activity.CookieActivity"/>
 
-        <activity android:name="com.yoryky.demo.activity.DaggerActivity"/>
+        <activity android:name=".activity.DaggerActivity"/>
 
-        <activity android:name="com.yoryky.demo.activity.RepositoryActivity"/>
+        <activity android:name=".activity.RepositoryActivity"/>
 
-        <activity android:name="com.yoryky.demo.activity.Retrofit2Activity"/>
+        <activity android:name=".activity.Retrofit2Activity"/>
 
-        <activity android:name="com.yoryky.demo.activity.RxJavaActivity"/>
+        <activity android:name=".activity.RxJavaActivity"/>
 
-        <activity android:name="com.yoryky.demo.activity.UrlConnectionActivity"/>
+        <activity android:name=".activity.UrlConnectionActivity"/>
 
-        <activity android:name="com.yoryky.demo.activity.SocketActivity"/>
+        <activity android:name=".activity.SocketActivity"/>
 
-        <activity android:name="com.yoryky.demo.activity.AsyncTaskActivity"/>
+        <activity android:name=".activity.AsyncTaskActivity"/>
 
         <activity android:name=".activity.ProviderActivity"/>
+
+        <activity android:name=".activity.StorageActivity"/>
 
         <provider
             android:name="com.yoryky.demo.provider.MenuProvider"

@@ -6,13 +6,25 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.yoryky.demo.R;
+import com.yoryky.demo.testjros.AppVersion;
+import com.yoryky.demo.testjros.BaseRequestEntity;
+
+import org.json.JSONArray;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,6 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by caicai on 2017/9/28.
@@ -34,6 +47,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
     private Button btnPostFile;
     private Button btnPostImg;
     private Button btnAsyncTest;
+    private Button btnAsyncLibrary;
     private Context mContext;
 
     @Override
@@ -49,14 +63,16 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         btnPost = (Button) findViewById(R.id.btn_post);
         btnPostJson = (Button) findViewById(R.id.btn_post_json);
         btnPostFile = (Button) findViewById(R.id.btn_post_file);
-        btnPostImg = (Button)findViewById(R.id.btn_post_img);
-        btnAsyncTest = (Button)findViewById(R.id.btn_async_test);
+        btnPostImg = (Button) findViewById(R.id.btn_post_img);
+        btnAsyncTest = (Button) findViewById(R.id.btn_async_test);
+        btnAsyncLibrary = (Button)findViewById(R.id.btn_async_library);
         btnGet.setOnClickListener(this);
         btnPost.setOnClickListener(this);
         btnPostJson.setOnClickListener(this);
         btnPostFile.setOnClickListener(this);
         btnPostImg.setOnClickListener(this);
         btnAsyncTest.setOnClickListener(this);
+        btnAsyncLibrary.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +95,9 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.btn_async_test:
                 syncTest();
+                break;
+            case R.id.btn_async_library:
+                syncLibrary();
                 break;
         }
     }
@@ -108,7 +127,7 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
                 String url = "http://192.168.8.136:8081/test/post";
                 OkHttpClient httpClient = new OkHttpClient();
                 RequestBody body = new FormBody.Builder().add("name", "yoryky").add("age", "12").build();
-                Request request = new Request.Builder().url(url).post(body).header("Cookie","{'name':'yoryky','age':'12'").build();
+                Request request = new Request.Builder().url(url).post(body).header("Cookie", "{'name':'yoryky','age':'12'").build();
                 Call call = httpClient.newCall(request);
                 try {
                     Response response = call.execute();
@@ -146,12 +165,12 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
             public void run() {
                 try {
                     InputStream is = getClass().getResourceAsStream("/assets/student.txt");
-                    File file = new File(mContext.getExternalCacheDir(),"student.txt");
+                    File file = new File(mContext.getExternalCacheDir(), "student.txt");
                     OutputStream os = new FileOutputStream(file);
                     int bytesRead = 0;
-                    byte[]  buffer = new byte[2048];
-                    while((bytesRead = is.read(buffer,0,2048))!= -1){
-                        os.write(buffer,0,bytesRead);
+                    byte[] buffer = new byte[2048];
+                    while ((bytesRead = is.read(buffer, 0, 2048)) != -1) {
+                        os.write(buffer, 0, bytesRead);
                     }
                     os.close();
                     is.close();
@@ -171,18 +190,18 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         }).start();
     }
 
-    private void postImgData(){
+    private void postImgData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     InputStream is = getClass().getResourceAsStream("/assets/default.png");
-                    File file = new File(mContext.getExternalCacheDir(),"default.png");
+                    File file = new File(mContext.getExternalCacheDir(), "default.png");
                     OutputStream os = new FileOutputStream(file);
                     int bytesRead = 0;
-                    byte[]  buffer = new byte[2048];
-                    while((bytesRead = is.read(buffer,0,2048))!= -1){
-                        os.write(buffer,0,bytesRead);
+                    byte[] buffer = new byte[2048];
+                    while ((bytesRead = is.read(buffer, 0, 2048)) != -1) {
+                        os.write(buffer, 0, bytesRead);
                     }
                     os.close();
                     is.close();
@@ -202,8 +221,8 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
         }).start();
     }
 
-    private void syncTest(){
-        String url = "https://www.baidu.com/";
+    private void syncTest() {
+        String url = "http://192.168.8.136:8081/test/postJson";
         OkHttpClient okHttpClient = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json;charset=utf-8");
         RequestBody body = RequestBody.create(JSON, "{'name':'yjing','age':'12'}");
@@ -220,8 +239,48 @@ public class Http3Activity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("我是异步线程,线程Id为:" + Thread.currentThread().getId());
+                String responseStr = response.body().string();
+                System.out.println("我是异步线程,线程Id为:" + responseStr);
             }
         });
+    }
+
+
+    private void syncLibrary() {
+        try {
+            String url = "http://192.168.8.187:8001/agate/jros/qry_latestversion.do";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            MediaType JSONTYPE = MediaType.parse("application/json;charset=utf-8");
+            List<BaseRequestEntity> requestEntities = new BaseRequestEntity.Builder("qry_latestversion").addParams("native_version", "1.0.0").addParams("web_version", "1.0.0").addParams("device_platform", "android").build();
+            /*RequestBody body = RequestBody.create(null, "{'name':'yjing','age':'12'}");*/
+            String strBody = new Gson().toJson(requestEntities);
+            RequestBody body = RequestBody.create(JSONTYPE, strBody);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .method("POST", body)
+                    .build();
+            Call call = okHttpClient.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Gson gson = new Gson();
+                    String responseStr = response.body().string();
+                    JsonArray jsonArray = new JsonParser().parse(responseStr).getAsJsonArray();
+                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                    jsonObject = jsonObject.get("data").getAsJsonObject();
+                    jsonArray = jsonObject.get("record1").getAsJsonArray();
+                    List<AppVersion> appVersions = gson.fromJson(jsonArray, new TypeToken<List<AppVersion>>() { }.getType());
+                    System.out.println("我是异步线程,线程Id为:" + appVersions.get(0).getUpdate_type());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
